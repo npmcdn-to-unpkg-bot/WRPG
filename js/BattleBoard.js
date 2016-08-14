@@ -49,6 +49,10 @@ BattleBoard.prototype.emptySpace = function(x, y) {
 	return this.contents[y][x] === "E";
 }
 
+BattleBoard.prototype.clearSpace = function(x, y) {
+	this.contents[y][x] = "E";
+}
+
 BattleBoard.prototype.placeCharacter = function(character) {
 	var x = character.getPosX();
 	var y = character.getPosY();
@@ -67,5 +71,16 @@ BattleBoard.prototype.print = function() {
 			out += board[x][y];
 		}
 		console.log(out);
+	}
+}
+
+BattleBoard.prototype.moveCharacter = function(character, xOff, yOff) {
+	var curx = character.posx;
+	var cury = character.posy;
+	if(this.emptySpace(curx + xOff, cury + yOff)) {
+		this.clearSpace(curx, cury);
+		character.posx += xOff;
+		character.posy += yOff;
+		this.placeCharacter(character);
 	}
 }

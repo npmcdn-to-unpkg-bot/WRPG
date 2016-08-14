@@ -23,5 +23,12 @@ Roster.prototype.getCharacters = function() {
 
 Roster.prototype.addCharacter = function(character) {
 		this.characters.push(character);
+}
+
+Roster.prototype.removeCharacter = function(character) {
+	var index = this.characters.indexOf(character);
+	if(index > -1) {
+		this.characters.splice(index, 1);
 	}
-	// END GETTERS AND SETTERS
+}
+// END GETTERS AND SETTERS

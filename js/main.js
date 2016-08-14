@@ -10,3 +10,7 @@ var testBoard = new BattleBoard(10, 10);
 testBoard.placeCharacter(testCharacter);
 
 testBoard.print();
+
+testBoard.moveCharacter(testCharacter, 2, 1);
+
+testBoard.print();
