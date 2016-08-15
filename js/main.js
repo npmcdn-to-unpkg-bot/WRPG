@@ -4,13 +4,23 @@
 //Character(id, name, race, level, maxHealth, maxEnergy, maxMana, strength, agility, intelligence, charisma, posx, posy)
 //BattleBoard(dimX, dimY)
 
-var testCharacter = new Character(1, "Rupert", "Human", 1, 100, 50, 25, 9, 7, 4, 5, 1, 2);
+var testCharacter = new Character(1, "Rupert", "Human", 1, 100, 50, 25, 9, 7, 4, 5, 0, 0);
 var testBoard = new BattleBoard(10, 10);
 
 testBoard.placeCharacter(testCharacter);
 
-testBoard.print();
+testBoard.moveCharacter(testCharacter, 2, 3);
 
-testBoard.moveCharacter(testCharacter, 2, 1);
+var boardHTML = testBoard.generateHTML();
 
-testBoard.print();
+addElement(boardHTML, 'battleBoard', 'output');
+
+function addElement(content, extraClass, target) {
+  var newElement = document.createElement('div');
+  newElement.setAttribute('class', extraClass);
+  newElement.innerHTML = content;
+  document.getElementById(target).appendChild(newElement);
+}
+ function clearElement(id) {
+   document.getElementById(id).innerHTML = '';
+ }

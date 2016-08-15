@@ -29,7 +29,7 @@ BattleBoard.prototype.getContents = function() {
 }
 
 BattleBoard.prototype.getContentsAt = function(x, y) {
-		return this.contents[x][y]
+		return this.contents[x][y];
 	}
 	// END GETTERS AND SETTERS
 
@@ -83,4 +83,18 @@ BattleBoard.prototype.moveCharacter = function(character, xOff, yOff) {
 		character.posy += yOff;
 		this.placeCharacter(character);
 	}
+}
+
+BattleBoard.prototype.generateHTML = function() {
+	var out = '';
+	var cellWidth = 100/this.dimX + "%";
+	for(var x = 0; x < this.dimX; x++) {
+		out += '<div class="row">'
+		for(var y = 0; y < this.dimY; y++) {
+			var cellContent = this.getContentsAt(x, y);
+			out += '<div class="cell" style="width: ' + cellWidth + '"><div class="contents">' + cellContent + '</div></div>';
+		}
+		out += '</div>';
+	}
+	return out;
 }
