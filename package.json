@@ -1,0 +1,23 @@
+{
+  "name": "web-rpg",
+  "version": "1.0.0",
+  "description": "basic web-based strategy rpg to practice javascript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mwooddesigns/WRPG.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mwooddesigns/WRPG/issues"
+  },
+  "homepage": "https://github.com/mwooddesigns/WRPG#readme",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-jshint": "^1.0.0"
+  }
+}
