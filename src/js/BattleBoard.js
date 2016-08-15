@@ -25,11 +25,11 @@ BattleBoard.prototype.getDimY = function() {
 }
 
 BattleBoard.prototype.getContents = function() {
-	return this.contents;
+	return this.board_cells;
 }
 
 BattleBoard.prototype.getContentsAt = function(x, y) {
-		return this.contents[x][y];
+		return this.board_cells[x][y];
 	}
 	// END GETTERS AND SETTERS
 
@@ -38,26 +38,26 @@ BattleBoard.prototype.createBlankBoard = function() {
 	for (x = 0; x < this.dimX; x++) {
 		var empty = [];
 		for (y = 0; y < this.dimY; y++) {
-			empty.push("E");
+			empty.push(new BoardCell("E", "Grass"));
 		}
 		board.push(empty);
 	}
-	this.contents = board;
+	this.board_cells = board;
 }
 
 BattleBoard.prototype.emptySpace = function(x, y) {
-	return this.contents[y][x] === "E";
+	return this.board_cells[y][x].getContents() === "E";
 }
 
 BattleBoard.prototype.clearSpace = function(x, y) {
-	this.contents[y][x] = "E";
+	this.board_cells[y][x].setContents("E");
 }
 
 BattleBoard.prototype.placeCharacter = function(character) {
 	var x = character.getPosX();
 	var y = character.getPosY();
-	if (this.contents[y][x] === "E") {
-		this.contents[y][x] = character.getID();
+	if (this.emptySpace(x, y)) {
+		this.board_cells[y][x].setContents(character.getID());
 	} else {
 		console.log("Error: There is already a person or object in this spot!");
 	}
@@ -91,7 +91,7 @@ BattleBoard.prototype.generateHTML = function() {
 	for(var x = 0; x < this.dimX; x++) {
 		out += '<div class="row">'
 		for(var y = 0; y < this.dimY; y++) {
-			var cellContent = this.getContentsAt(x, y);
+			var cellContent = this.getContentsAt(x, y).getContents();
 			out += '<div class="cell" style="width: ' + cellWidth + '"><div class="contents">' + cellContent + '</div></div>';
 		}
 		out += '</div>';
