@@ -5,13 +5,15 @@
 //BattleBoard(dimX, dimY)
 
 var testCharacter = new Character(1, "Rupert", "Human", 1, 100, 50, 25, 9, 7, 4, 5, 0, 0);
-var testBoard = new BattleBoard(10, 10);
+var testRoster = new Roster(1, [testCharacter]);
 
-testBoard.placeCharacter(testCharacter);
+var testBattle = new Battle(new BattleBoard(10, 10), [testRoster]);
 
-testBoard.moveCharacter(testCharacter, 2, 3);
+testBattle.board.placeCharacter(testCharacter);
 
-var boardHTML = testBoard.generateHTML();
+testBattle.board.moveCharacter(testCharacter, 2, 3);
+
+var boardHTML = testBattle.board.generateHTML();
 
 addElement(boardHTML, 'battleBoard', 'output');
 

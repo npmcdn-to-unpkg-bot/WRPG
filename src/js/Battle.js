@@ -5,6 +5,11 @@
  *
  */
 
-function Battle() {
+function Battle(board, rosters) {
+  this.board = board;
+  this.rosters = rosters;
+}
 
+function detectClick() {
+  alert('cell clicked');
 }

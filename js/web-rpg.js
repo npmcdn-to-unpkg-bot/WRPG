@@ -27,138 +27,8 @@ function Character(id, name, race, level, maxHealth, maxEnergy, maxMana, strengt
 	this.posy = posy;
 }
 
-// BEGIN GETTERS AND SETTERS
-Character.prototype.getID = function() {
-	return this.character_id;
-}
-
-Character.prototype.getName = function() {
-	return this.character_name;
-}
-
-Character.prototype.getRace = function() {
-	return this.character_race;
-}
-
-Character.prototype.getLevel = function() {
-	return this.character_level;
-}
-
-Character.prototype.getHealth = function() {
-	return this.character_health;
-}
-
-Character.prototype.getMaxHealth = function() {
-	return this.character_max_health;
-}
-
-Character.prototype.getEnergy = function() {
-	return this.character_energy;
-}
-
-Character.prototype.getMaxEnergy = function() {
-	return this.character_max_energy;
-}
-
-Character.prototype.getMana = function() {
-	return this.character_mana;
-}
-
-Character.prototype.getMaxMana = function() {
-	return this.character_max_mana;
-}
-
-Character.prototype.getStrength = function() {
-	return this.character_strength;
-}
-
-Character.prototype.getAgility = function() {
-	return this.character_agility;
-}
-
-Character.prototype.getIntelligence = function() {
-	return this.character_intelligence;
-}
-
-Character.prototype.getCharisma = function() {
-	return this.character_charisma;
-}
-
-Character.prototype.getPosX = function() {
-	return this.posx;
-}
-
-Character.prototype.getPosY = function() {
-	return this.posy;
-}
-
-Character.prototype.setID = function(val) {
-	this.character_id = val;
-}
-
-Character.prototype.setName = function(str) {
-	this.character_name = str;
-}
-
-Character.prototype.setRace = function(str) {
-	this.character_race = str;
-}
-
-Character.prototype.setLevel = function(val) {
-	this.character_level = val;
-}
-
-Character.prototype.setHealth = function(val) {
-	this.character_health = val;
-}
-
-Character.prototype.setMaxHealth = function(val) {
-	this.character_max_health = val;
-}
-
-Character.prototype.setEnergy = function(val) {
-	this.character_energy = val;
-}
-
-Character.prototype.setMaxEnergy = function(val) {
-	this.character_max_energy = val;
-}
-
-Character.prototype.setMana = function(val) {
-	this.character_mana = val;
-}
-
-Character.prototype.setMaxMana = function(val) {
-	this.character_max_mana = val;
-}
-
-Character.prototype.setStrength = function(val) {
-	this.character_strength = val;
-}
-
-Character.prototype.setAgility = function(val) {
-	this.character_agility = val;
-}
-
-Character.prototype.setIntelligence = function(val) {
-	this.character_intelligence = val;
-}
-
-Character.prototype.setCharisma = function(val) {
-	this.character_charisma = val;
-}
-
-Character.prototype.setPosX = function(val) {
-	this.posx = val;
-}
-
-Character.prototype.setPosY = function(val) {
-		this.posy = val;
-	}
-	// END GETTERS AND SETTERS
-
 Character.prototype.print = function() {
-	console.log("Hi, my name is " + this.getName() + "!");
+	console.log("Hi, my name is " + this.character_name + "!");
 }
 ;/*
  *
@@ -174,15 +44,6 @@ function Roster(id, characters) {
 	this.characters = characters;
 }
 
-// BEGIN GETTERS AND SETTERS
-Roster.prototype.getID = function() {
-	return this.roster_id;
-}
-
-Roster.prototype.getCharacters = function() {
-	return this.characters;
-}
-
 Roster.prototype.addCharacter = function(character) {
 		this.characters.push(character);
 }
@@ -193,29 +54,19 @@ Roster.prototype.removeCharacter = function(character) {
 		this.characters.splice(index, 1);
 	}
 }
-// END GETTERS AND SETTERS
-;function BoardCell(contents, terrain) {
+;/*
+*
+*   Object for storing cell information that will be used
+*   to create a BattleBoard
+*
+*/
+
+function BoardCell(contents, terrain, xcoor, ycoor) {
   this.contents = contents;
   this.terrain = terrain;
+  this.xcoor = xcoor;
+  this.ycoor = ycoor;
 }
-
-// BEGIN GETTERS AND SETTERS
-BoardCell.prototype.getContents = function() {
-  return this.contents;
-}
-
-BoardCell.prototype.getTerrain = function() {
-  return this.terrain;
-}
-
-BoardCell.prototype.setContents = function(contents) {
-  this.contents = contents;
-}
-
-BoardCell.prototype.setTerrain = function(terrain) {
-  this.terrain = terrain;
-}
-// END GETTERS AND SETTERS
 ;/*
  *
  *   Object for keeping track of all characters, objects, and
@@ -233,24 +84,6 @@ function BattleBoard(dimX, dimY) {
 	this.createBlankBoard();
 }
 
-// BEGIN GETTERS AND SETTERS
-BattleBoard.prototype.getDimX = function() {
-	return this.dimX;
-}
-
-BattleBoard.prototype.getDimY = function() {
-	return this.dimY;
-}
-
-BattleBoard.prototype.getContents = function() {
-	return this.board_cells;
-}
-
-BattleBoard.prototype.getContentsAt = function(x, y) {
-		return this.board_cells[x][y];
-	}
-	// END GETTERS AND SETTERS
-
 BattleBoard.prototype.createBlankBoard = function() {
 	var board = [];
 	for (x = 0; x < this.dimX; x++) {
@@ -263,26 +96,30 @@ BattleBoard.prototype.createBlankBoard = function() {
 	this.board_cells = board;
 }
 
+BattleBoard.prototype.getContentsAt = function(x, y) {
+		return this.board_cells[x][y];
+	}
+
 BattleBoard.prototype.emptySpace = function(x, y) {
-	return this.board_cells[y][x].getContents() === "E";
+	return this.board_cells[y][x].contents === "E";
 }
 
 BattleBoard.prototype.clearSpace = function(x, y) {
-	this.board_cells[y][x].setContents("E");
+	this.board_cells[y][x].contents = "E";
 }
 
 BattleBoard.prototype.placeCharacter = function(character) {
-	var x = character.getPosX();
-	var y = character.getPosY();
+	var x = character.posx;
+	var y = character.posy;
 	if (this.emptySpace(x, y)) {
-		this.board_cells[y][x].setContents(character.getID());
+		this.board_cells[y][x].contents = character.character_id;
 	} else {
 		console.log("Error: There is already a person or object in this spot!");
 	}
 }
 
 BattleBoard.prototype.print = function() {
-	var board = this.getContents();
+	var board = this.board_cells;
 	for (x = 0; x < this.dimX; x++) {
 		var out = "";
 		for (y = 0; y < this.dimY; y++) {
@@ -309,8 +146,8 @@ BattleBoard.prototype.generateHTML = function() {
 	for(var x = 0; x < this.dimX; x++) {
 		out += '<div class="row">'
 		for(var y = 0; y < this.dimY; y++) {
-			var cellContent = this.getContentsAt(x, y).getContents();
-			out += '<div class="cell" style="width: ' + cellWidth + '"><div class="contents">' + cellContent + '</div></div>';
+			var cellContent = this.getContentsAt(x, y).contents;
+			out += '<div class="cell" data-xpos="" onclick="detectClick()" style="width: ' + cellWidth + '"><div class="contents">' + cellContent + '</div></div>';
 		}
 		out += '</div>';
 	}
@@ -323,8 +160,13 @@ BattleBoard.prototype.generateHTML = function() {
  *
  */
 
-function Battle() {
+function Battle(board, rosters) {
+  this.board = board;
+  this.rosters = rosters;
+}
 
+function detectClick() {
+  alert('cell clicked');
 }
 ;// Eventually the main controller. For now a bunch of console logging.
 
@@ -333,13 +175,15 @@ function Battle() {
 //BattleBoard(dimX, dimY)
 
 var testCharacter = new Character(1, "Rupert", "Human", 1, 100, 50, 25, 9, 7, 4, 5, 0, 0);
-var testBoard = new BattleBoard(10, 10);
+var testRoster = new Roster(1, [testCharacter]);
 
-testBoard.placeCharacter(testCharacter);
+var testBattle = new Battle(new BattleBoard(10, 10), [testRoster]);
 
-testBoard.moveCharacter(testCharacter, 2, 3);
+testBattle.board.placeCharacter(testCharacter);
 
-var boardHTML = testBoard.generateHTML();
+testBattle.board.moveCharacter(testCharacter, 2, 3);
+
+var boardHTML = testBattle.board.generateHTML();
 
 addElement(boardHTML, 'battleBoard', 'output');
 
