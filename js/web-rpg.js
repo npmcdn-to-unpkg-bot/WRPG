@@ -42,6 +42,8 @@ Character.prototype.print = function() {
 function Roster(id, characters) {
 	this.roster_id = id;
 	this.characters = characters;
+	this.currentlyActing = 0;
+	this.currentCharacter = this.characters[this.currentlyActing];
 }
 
 Roster.prototype.addCharacter = function(character) {
@@ -53,6 +55,22 @@ Roster.prototype.removeCharacter = function(character) {
 	if(index > -1) {
 		this.characters.splice(index, 1);
 	}
+}
+
+Roster.prototype.advanceActing = function() {
+	var max = this.characters.length - 1;
+  if(this.currentTurn == max) {
+    this.currentlyActing = 1;
+  } else {
+    this.currentlyActing++;
+  }
+	this.currentCharacter = this.characters[this.currentlyActing];
+}
+
+Roster.prototype.sortByAgi = function() {
+	this.characters = this.characters.sort(function(a, b) {
+		return parseFloat(b.character_agility) - parseFloat(a.character_agility);
+	});
 }
 ;/*
 *
@@ -195,26 +213,7 @@ function detectClick(domEl) {
   var clickedY = domEl.dataset.ypos;
   alert("Cell clicked \n X-Coor: " + clickedX + "\n Y-Coor: " + clickedY);
 }
-;// Eventually the main controller. For now a bunch of console logging.
-
-//Constructor Templates
-//Character(id, name, race, level, maxHealth, maxEnergy, maxMana, strength, agility, intelligence, charisma, posx, posy)
-//BattleBoard(dimX, dimY)
-
-var testCharacter = new Character(1, "Rupert", "Human", 1, 100, 50, 25, 9, 7, 4, 5, 0, 0);
-var testRoster = new Roster(1, [testCharacter]);
-
-var testBattle = new Battle(new BattleBoard(10, 10), [testRoster]);
-
-testBattle.board.placeCharacter(testCharacter);
-
-testBattle.board.moveCharacter(testCharacter, 2, 3);
-
-var boardHTML = testBattle.board.generateHTML();
-
-addElement(boardHTML, 'battleBoard', 'output');
-
-function addElement(content, extraClass, target) {
+;function addElement(content, extraClass, target) {
   var newElement = document.createElement('div');
   newElement.setAttribute('class', extraClass);
   newElement.innerHTML = content;
@@ -223,3 +222,24 @@ function addElement(content, extraClass, target) {
  function clearElement(id) {
    document.getElementById(id).innerHTML = '';
  }
+;// Eventually the main controller. For now a bunch of console logging.
+
+//Constructor Templates
+//Character(id, name, race, level, maxHealth, maxEnergy, maxMana, strength, agility, intelligence, charisma, posx, posy)
+//BattleBoard(dimX, dimY)
+
+var testCharacter1 = new Character(1, "Rupert", "Human", 1, 100, 50, 25, 9, 7, 4, 5, 0, 0);
+var testCharacter2 = new Character(2, "Ignatius", "Human", 1, 100, 50, 25, 7, 9, 4, 5, 0, 0);
+var testRoster = new Roster(1, [testCharacter1, testCharacter2]);
+
+testRoster.sortByAgi();
+
+var testBattle = new Battle(new BattleBoard(10, 10), [testRoster]);
+
+testBattle.board.placeCharacter(testCharacter1);
+
+testBattle.board.moveCharacter(testCharacter1, 2, 3);
+
+var boardHTML = testBattle.board.generateHTML();
+
+addElement(boardHTML, 'battleBoard', 'output');
