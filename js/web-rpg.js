@@ -164,6 +164,21 @@ function Battle(board, rosters, currentTurn) {
   this.board = board;
   this.rosters = rosters;
   this.currentTurn = currentTurn;
+  this.phases = ["Standby", "Move", "Act", "End"];
+  this.currentPhase = 0;
+}
+
+Battle.prototype.advancePhase = function() {
+  var max = this.phases.length - 1;
+  if(this.currentPhase == max) {
+    this.currentPhase = 0;
+  } else {
+    this.currentPhase++;
+  }
+}
+
+Battle.prototype.turnPhase = function() {
+  return this.phases[this.currentPhase];
 }
 
 Battle.prototype.advanceTurn = function() {
