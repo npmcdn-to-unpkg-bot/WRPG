@@ -89,7 +89,7 @@ BattleBoard.prototype.createBlankBoard = function() {
 	for (x = 0; x < this.dimX; x++) {
 		var empty = [];
 		for (y = 0; y < this.dimY; y++) {
-			empty.push(new BoardCell("E", "Grass"));
+			empty.push(new BoardCell("E", "Grass", x, y));
 		}
 		board.push(empty);
 	}
@@ -147,7 +147,7 @@ BattleBoard.prototype.generateHTML = function() {
 		out += '<div class="row">'
 		for(var y = 0; y < this.dimY; y++) {
 			var cellContent = this.getContentsAt(x, y).contents;
-			out += '<div class="cell" data-xpos="" onclick="detectClick()" style="width: ' + cellWidth + '"><div class="contents">' + cellContent + '</div></div>';
+			out += '<div class="cell" data-xpos="' + y + '" data-ypos="' + x + '" onclick="detectClick(this)" style="width: ' + cellWidth + '"><div class="contents">' + cellContent + '</div></div>';
 		}
 		out += '</div>';
 	}
@@ -160,13 +160,25 @@ BattleBoard.prototype.generateHTML = function() {
  *
  */
 
-function Battle(board, rosters) {
+function Battle(board, rosters, currentTurn) {
   this.board = board;
   this.rosters = rosters;
+  this.currentTurn = currentTurn;
 }
 
-function detectClick() {
-  alert('cell clicked');
+Battle.prototype.advanceTurn = function() {
+  var max = this.rosters.length;
+  if(this.currentTurn == max) {
+    this.currentTurn = 1;
+  } else {
+    this.currentTurn++;
+  }
+}
+
+function detectClick(domEl) {
+  var clickedX = domEl.dataset.xpos;
+  var clickedY = domEl.dataset.ypos;
+  alert("Cell clicked \n X-Coor: " + clickedX + "\n Y-Coor: " + clickedY);
 }
 ;// Eventually the main controller. For now a bunch of console logging.
 

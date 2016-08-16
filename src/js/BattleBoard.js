@@ -20,7 +20,7 @@ BattleBoard.prototype.createBlankBoard = function() {
 	for (x = 0; x < this.dimX; x++) {
 		var empty = [];
 		for (y = 0; y < this.dimY; y++) {
-			empty.push(new BoardCell("E", "Grass"));
+			empty.push(new BoardCell("E", "Grass", x, y));
 		}
 		board.push(empty);
 	}
@@ -78,7 +78,7 @@ BattleBoard.prototype.generateHTML = function() {
 		out += '<div class="row">'
 		for(var y = 0; y < this.dimY; y++) {
 			var cellContent = this.getContentsAt(x, y).contents;
-			out += '<div class="cell" data-xpos="" onclick="detectClick()" style="width: ' + cellWidth + '"><div class="contents">' + cellContent + '</div></div>';
+			out += '<div class="cell" data-xpos="' + y + '" data-ypos="' + x + '" onclick="detectClick(this)" style="width: ' + cellWidth + '"><div class="contents">' + cellContent + '</div></div>';
 		}
 		out += '</div>';
 	}
