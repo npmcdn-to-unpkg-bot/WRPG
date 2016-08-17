@@ -8,7 +8,7 @@
  */
 
 // Character Constructor
-function Character(id, name, race, level, maxHealth, maxEnergy, maxMana, strength, agility, intelligence, charisma, posx, posy) {
+function Character(id, name, race, level, maxHealth, maxEnergy, maxMana, strength, agility, intelligence, charisma, luck, posx, posy) {
 	this.character_id = id;
 	this.character_name = name;
 	this.character_race = race;
@@ -23,6 +23,8 @@ function Character(id, name, race, level, maxHealth, maxEnergy, maxMana, strengt
 	this.character_agility = agility;
 	this.character_intelligence = intelligence;
 	this.character_charisma = charisma;
+	this.character_luck = luck;
+	this.initiative = 0;
 	this.posx = posx;
 	this.posy = posy;
 }

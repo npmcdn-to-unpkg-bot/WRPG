@@ -1,4 +1,16 @@
-/*
+function Skill() {
+
+}
+;function Class() {
+
+}
+;function ClassTree() {
+  
+}
+;function Equipment() {
+  
+}
+;/*
  *
  *   Main object for all characters in the game to keep track of
  *   all stats and perform all battle actions.
@@ -8,7 +20,7 @@
  */
 
 // Character Constructor
-function Character(id, name, race, level, maxHealth, maxEnergy, maxMana, strength, agility, intelligence, charisma, posx, posy) {
+function Character(id, name, race, level, maxHealth, maxEnergy, maxMana, strength, agility, intelligence, charisma, luck, posx, posy) {
 	this.character_id = id;
 	this.character_name = name;
 	this.character_race = race;
@@ -23,6 +35,8 @@ function Character(id, name, race, level, maxHealth, maxEnergy, maxMana, strengt
 	this.character_agility = agility;
 	this.character_intelligence = intelligence;
 	this.character_charisma = charisma;
+	this.character_luck = luck;
+	this.initiative = 0;
 	this.posx = posx;
 	this.posy = posy;
 }
@@ -42,8 +56,6 @@ Character.prototype.print = function() {
 function Roster(id, characters) {
 	this.roster_id = id;
 	this.characters = characters;
-	this.currentlyActing = 0;
-	this.currentCharacter = this.characters[this.currentlyActing];
 }
 
 Roster.prototype.addCharacter = function(character) {
@@ -55,22 +67,6 @@ Roster.prototype.removeCharacter = function(character) {
 	if(index > -1) {
 		this.characters.splice(index, 1);
 	}
-}
-
-Roster.prototype.advanceActing = function() {
-	var max = this.characters.length - 1;
-  if(this.currentTurn == max) {
-    this.currentlyActing = 1;
-  } else {
-    this.currentlyActing++;
-  }
-	this.currentCharacter = this.characters[this.currentlyActing];
-}
-
-Roster.prototype.sortByAgi = function() {
-	this.characters = this.characters.sort(function(a, b) {
-		return parseFloat(b.character_agility) - parseFloat(a.character_agility);
-	});
 }
 ;/*
 *
@@ -228,11 +224,9 @@ function detectClick(domEl) {
 //Character(id, name, race, level, maxHealth, maxEnergy, maxMana, strength, agility, intelligence, charisma, posx, posy)
 //BattleBoard(dimX, dimY)
 
-var testCharacter1 = new Character(1, "Rupert", "Human", 1, 100, 50, 25, 9, 7, 4, 5, 0, 0);
-var testCharacter2 = new Character(2, "Ignatius", "Human", 1, 100, 50, 25, 7, 9, 4, 5, 0, 0);
+var testCharacter1 = new Character(1, "Rupert", "Human", 1, 100, 50, 25, 9, 7, 4, 5, 3, 0, 0);
+var testCharacter2 = new Character(2, "Ignatius", "Human", 1, 100, 50, 25, 7, 9, 4, 5, 5, 0, 0);
 var testRoster = new Roster(1, [testCharacter1, testCharacter2]);
-
-testRoster.sortByAgi();
 
 var testBattle = new Battle(new BattleBoard(10, 10), [testRoster]);
 
