@@ -8,7 +8,7 @@ module.exports = function(grunt) {
         separator: ';'
       },
       dist: {
-        src: ['src/js/Skill.js','src/js/Class.js','src/js/ClassTree.js','src/js/Equipment.js','src/js/Character.js','src/js/Roster.js','src/js/BoardCell.js','src/js/BattleBoard.js','src/js/Battle.js','src/js/dom-functions.js','src/js/main.js'],
+        src: ['src/js/header.js','src/js/Skill.js','src/js/Class.js','src/js/ClassTree.js','src/js/Equipment.js','src/js/Character.js','src/js/Roster.js','src/js/BoardCell.js','src/js/BattleBoard.js','src/js/Battle.js','src/js/dom-functions.js','src/js/main.js'],
         dest: 'js/<%= pkg.name %>.js'
       }
     },

@@ -1,4 +1,5 @@
-function Skill() {
+"use strict";
+;function Skill() {
 
 }
 ;function Class() {
@@ -100,9 +101,9 @@ function BattleBoard(dimX, dimY) {
 
 BattleBoard.prototype.createBlankBoard = function() {
 	var board = [];
-	for (x = 0; x < this.dimX; x++) {
+	for (var x = 0; x < this.dimX; x++) {
 		var empty = [];
-		for (y = 0; y < this.dimY; y++) {
+		for (var y = 0; y < this.dimY; y++) {
 			empty.push(new BoardCell("E", "Grass", x, y));
 		}
 		board.push(empty);
