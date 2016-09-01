@@ -5,8 +5,8 @@
 ;function Class() {
 
 }
-;function ClassTree() {
-  
+;function ClassTree(classes) {
+  this.classes = classes;
 }
 ;function Equipment() {
   
